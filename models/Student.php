@@ -10,7 +10,7 @@ class Student
     public function __construct()
     {
         $this->conn = (new Database())->getConnection();
-        // Force associative array fetch mode globally
+
         $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
@@ -19,7 +19,7 @@ class Student
     {
         try {
             $stmt = $this->conn->query("SELECT * FROM {$this->table}");
-            return $stmt->fetchAll(); // already FETCH_ASSOC
+            return $stmt->fetchAll();
         } catch (PDOException $e) {
             jsonError("Database error: " . $e->getMessage(), 500);
         }
@@ -31,7 +31,7 @@ class Student
         try {
             $stmt = $this->conn->prepare("SELECT * FROM {$this->table} WHERE id = :id");
             $stmt->execute(['id' => $id]);
-            $student = $stmt->fetch(); // already FETCH_ASSOC
+            $student = $stmt->fetch();
             if (!$student) {
                 jsonError("Student not found", 404);
             }
@@ -91,7 +91,7 @@ class Student
     public function update($id, $data)
     {
         try {
-            $existing = $this->getById($id); // check if exists
+            $existing = $this->getById($id);
 
             // Prevent reg_number or email change
             if (isset($data['reg_number']) && $data['reg_number'] !== $existing['reg_number']) {
@@ -154,7 +154,7 @@ class Student
             if (!in_array($status, ['paid', 'unpaid'])) {
                 jsonError("Invalid fee status. Must be 'paid' or 'unpaid'", 400);
             }
-            $this->getById($id); // check if exists
+            $this->getById($id);
             $stmt = $this->conn->prepare("UPDATE {$this->table} SET fee_status = :status WHERE id = :id");
             if ($stmt->execute(['status' => $status, 'id' => $id])) {
                 return $this->getById($id);
