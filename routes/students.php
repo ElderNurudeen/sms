@@ -3,28 +3,16 @@ require_once __DIR__ . '/../controllers/StudentController.php';
 
 $studentController = new StudentController();
 
-$uri = $_SERVER['REQUEST_URI'];
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Remove query string
-$uri = strtok($uri, '?');
-
-// Detect script name dynamically
-$script_name = $_SERVER['SCRIPT_NAME'];
-
-// Remove the script path from URI
-if (strpos($uri, $script_name) === 0) {
-    $uri = substr($uri, strlen($script_name));
-}
-
-// Also remove any folder prefixes before index.php (for Apache setups)
-$uri = preg_replace('#^.*/index\.php#', '', $uri);
+// Remove trailing slash
+$uri = rtrim($uri, '/');
 
 // Ensure leading slash
 $uri = '/' . ltrim($uri, '/');
-$studentController = new StudentController();
 
-// Routing logic 
+// Routing
 switch (true) {
     case $uri === '/students' && $method === 'GET':
         $studentController->index();
