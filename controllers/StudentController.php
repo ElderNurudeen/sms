@@ -78,7 +78,7 @@ class StudentController
             jsonError("fee_status is required", 400);
         }
 
-        // Disallow extra fields
+        // not allow extra fields
         $allowed = ['fee_status'];
         $extra = array_diff(array_keys($data), $allowed);
         if (!empty($extra)) {
