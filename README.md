@@ -11,12 +11,11 @@ Endpoints
 1. Get All Students (with optional filters)
    GET /students
    Query Parameters (optional):
-   |Parameter | Description | | Example
-   ------------------------------------------|-------
-   |fee_status | Filter by (paid or unpaid)| unpaid
-   |class | Filter class (e.g ND, HND) | ND
+Parameter 	   |         Description  	                        |     Example
+_______________|_______________________________________________|____________
+fee_status  	|      Filter by fee status (paid or unpaid)	   |     unpaid
+class	         |     Filter by class (e.g., ND, HND)	         |      ND
 
----
 
 Example:
 http
