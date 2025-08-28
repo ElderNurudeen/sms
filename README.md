@@ -12,23 +12,43 @@ https://api.istudyglobe.com
 
 All endpoints are relative to the base URL.
 
-Endpoints
+---
 
-1. Get All Students (with optional filters)
-   GET /students
-   Query Parameters (optional):
-   |Parameter | Description | | Example
-   ------------------------------------------|-------
-   |fee_status | Filter by (paid or unpaid)| unpaid
-   |class | Filter class (e.g ND, HND) | ND
+## Table of Contents
+
+- [Endpoints](#-endpoints)
+  - [Get All Students](#1-get-all-students-with-optional-filters)
+  - [Get Student by ID](#2-get-student-by-id)
+  - [Create Student](#3-create-student)
+  - [Update Student](#4-update-student)
+  - [Delete Student](#5-delete-student)
+  - [Update Fee Status](#6-update-fee-status)
+  - [Search Students by Name](#7-search-students-by-name)
+- [Setup Guide](#-setup-guide)
+- [Error Handling](#-error-handling)
 
 ---
 
-Example:
-http
-GET /students?fee_status=unpaid&class=ND
+## Endpoints
 
-````
+### 1. Get All Students (with optional filters)
+
+```
+GET /students
+```
+
+**Query Parameters (optional):**
+
+| Parameter  | Description                    | Example |
+| ---------- | ------------------------------ | ------- |
+| fee_status | Filter by fee status           | unpaid  |
+| class      | Filter by class (e.g., ND,HND) | ND      |
+
+**Example Request:**
+
+```http
+GET /students?fee_status=unpaid&class=ND
+```
 
 **Response:**
 
@@ -45,7 +65,7 @@ GET /students?fee_status=unpaid&class=ND
     "created_at": "2025-08-28 14:00:00"
   }
 ]
-````
+```
 
 ---
 
@@ -223,23 +243,23 @@ GET /students/search?name=Muhammad
 
 ### 1. Clone the Repository
 
-1. Clone the repository
-   bash
-   git clone https://github.com/ElderNurudeen/sms.git
-   cd istudyglobe-api
-2. Environment Configuration
-   Create a .env file in the config/ directory with the following content:
-   ini
+```bash
+git clone https://github.com/ElderNurudeen/sms.git
+cd sms-api
+```
 
+### 2. Environment Configuration
+
+Create a `.env` file inside `config/` directory:
+
+```ini
 # Database Configuration
-
 DB_HOST=localhost
 DB_NAME=your_database
 DB_USER=root
 DB_PASS=secret
 
 # SMTP Configuration for Email Notifications
-
 SMTP_HOST=smtp.example.com
 SMTP_PORT=587
 SMTP_USERNAME=your_email@example.com
@@ -247,8 +267,7 @@ SMTP_PASSWORD=your_password
 SMTP_SECURE=tls
 SMTP_FROM_EMAIL=admin@example.com
 SMTP_FROM_NAME="School Admin"
-
-````
+```
 
 ### 3. Database Setup
 
@@ -265,7 +284,7 @@ CREATE TABLE students (
     fee_status ENUM('paid','unpaid') DEFAULT 'unpaid',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-````
+```
 
 ---
 
