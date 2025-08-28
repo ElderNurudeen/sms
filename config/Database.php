@@ -12,7 +12,7 @@ class Database
 
     public function __construct()
     {
-        loadEnv(); // load .env variables for security
+        loadEnv();
         $this->host = $_ENV['DB_HOST'];
         $this->db_name = $_ENV['DB_NAME'];
         $this->username = $_ENV['DB_USER'];
