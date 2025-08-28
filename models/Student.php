@@ -15,15 +15,34 @@ class Student
     }
 
     // Get all students
-    public function getAll()
+    public function getAll($fee_status = null, $class = null)
     {
         try {
-            $stmt = $this->conn->query("SELECT * FROM {$this->table}");
-            return $stmt->fetchAll();
+            $sql = "SELECT * FROM {$this->table} WHERE 1=1";
+            $params = [];
+
+            if ($fee_status) {
+                if (!in_array($fee_status, ['paid', 'unpaid'])) {
+                    jsonError("Invalid fee_status filter. Must be 'paid' or 'unpaid'", 400);
+                }
+                $sql .= " AND fee_status = :fee_status";
+                $params['fee_status'] = $fee_status;
+            }
+
+            if ($class) {
+                $sql .= " AND class = :class";
+                $params['class'] = $class;
+            }
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute($params);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             jsonError("Database error: " . $e->getMessage(), 500);
         }
     }
+
 
     // Get student by ID
     public function getById($id)

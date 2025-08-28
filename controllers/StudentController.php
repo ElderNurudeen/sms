@@ -14,7 +14,10 @@ class StudentController
     // GET /students
     public function index()
     {
-        $students = $this->student->getAll();
+        $fee_status = $_GET['fee_status'] ?? null;
+        $class = $_GET['class'] ?? null;
+
+        $students = $this->student->getAll($fee_status, $class);
         jsonResponse($students);
     }
 
