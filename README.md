@@ -26,8 +26,7 @@ All endpoints are relative to the base URL.
   - [Search Students by Name](#7-search-students-by-name)
 - [Setup Guide](#-setup-guide)
 - [Error Handling](#-error-handling)
-- [Rate Limiting](#-rate-limiting)
-- [Support](#-support)
+
 
 ---
 
@@ -247,7 +246,7 @@ GET /students/search?name=Muhammad
 
 ```bash
 git clone https://github.com/ElderNurudeen/sms.git
-cd istudyglobe-api
+cd sms-api
 ```
 
 ### 2. Environment Configuration
@@ -324,18 +323,3 @@ All errors return JSON with an `error` field.
 }
 ```
 
----
-
-## ⏱ Rate Limiting
-
-- Default: **60 requests per minute** per IP.
-- Exceeding this will return `429 Too Many Requests`.
-
----
-
-## Support
-
-For issues, please [open an issue](https://github.com/ElderNurudeen/sms/issues)  
-or contact the admin at **admin@example.com**.
-
----
